@@ -106,7 +106,32 @@ public class EarthQuakeClient {
     System.out.println("Found " + list.size() + " quakes that match that criteria");
   }
 
-  //
+  public ArrayList<QuakeEntry> filterByPhrase(ArrayList<QuakeEntry> quakeData, String position,
+      String phrase) {
+    ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
+    String title;
+    for (QuakeEntry qe : quakeData) {
+      title = qe.getInfo();
+      if ((position.equals("start") && title.startsWith(phrase))
+          || (position.equals("end") && title.endsWith(phrase))
+          || (position.equals("any") && title.contains(phrase))) {
+        answer.add(qe);
+      }
+    }
+    return answer;
+  }
+
+  public void quakesByPhrase(String position, String phrase) {
+    EarthQuakeParser parser = new EarthQuakeParser();
+    String source = "../data/nov20quakedatasmall.atom";
+    ArrayList<QuakeEntry> list = parser.read(source);
+    System.out.println("read data for " + list.size() + " quakes");
+    list = filterByPhrase(list, position, phrase);
+    for (QuakeEntry qe : list) {
+      System.out.println(qe);
+    }
+    System.out.println("Found " + list.size() + " quakes that match " + phrase + " at " + position);
+  }
 
   public static void main(String[] args) {
     EarthQuakeClient eqc = new EarthQuakeClient();
@@ -118,8 +143,15 @@ public class EarthQuakeClient {
     System.out.println();
 
     eqc.quakesOfDepth();
+    System.out.println();
 
-    //
+    eqc.quakesByPhrase("end", "California");
+    System.out.println();
+
+    eqc.quakesByPhrase("any", "Can");
+    System.out.println();
+
+    eqc.quakesByPhrase("start", "Explosion");
   }
 
 }
