@@ -1,6 +1,7 @@
 package solution;
 
 public class QuakeEntry implements Comparable<QuakeEntry> {
+
   private Location myLocation;
   private String title;
   private double depth;
@@ -8,7 +9,6 @@ public class QuakeEntry implements Comparable<QuakeEntry> {
 
   public QuakeEntry(double lat, double lon, double mag, String t, double d) {
     myLocation = new Location(lat, lon);
-
     magnitude = mag;
     title = t;
     depth = d;
