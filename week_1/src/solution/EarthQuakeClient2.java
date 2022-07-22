@@ -56,14 +56,15 @@ public class EarthQuakeClient2 {
     System.out.println("read data for " + list.size() + " quakes");
 
     MatchAllFilter maf = new MatchAllFilter();
-    maf.addFilter(new MagnitudeFilter(0.0, 2.0));
-    maf.addFilter(new DepthFilter(-100000.0, -10000.0));
-    maf.addFilter(new PhraseFilter("any", "a"));
+    maf.addFilter(new MagnitudeFilter(0.0, 2.0, "Magnitude"));
+    maf.addFilter(new DepthFilter(-100000.0, -10000.0, "Depth"));
+    maf.addFilter(new PhraseFilter("any", "a", "Phrase"));
 
     ArrayList<QuakeEntry> filteredList = filter(list, maf);
     for (QuakeEntry qe : filteredList) {
       System.out.println(qe);
     }
+    System.out.println("Filters used are: " + maf.getName());
   }
 
   public void testMatchAllFilter2() {

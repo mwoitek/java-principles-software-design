@@ -23,4 +23,12 @@ public class MatchAllFilter implements Filter {
     return true;
   }
 
+  public String getName() {
+    String names = filters.get(0).getName();
+    for (int i = 1; i < filters.size(); i++) {
+      names += " " + filters.get(i).getName();
+    }
+    return names;
+  }
+
 }
