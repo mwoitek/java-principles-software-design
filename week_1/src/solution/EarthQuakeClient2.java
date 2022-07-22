@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class EarthQuakeClient2 {
 
-  public EarthQuakeClient2() {}
-
   public ArrayList<QuakeEntry> filter(ArrayList<QuakeEntry> quakeData, Filter f) {
     ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
     for (QuakeEntry qe : quakeData) {
@@ -21,10 +19,32 @@ public class EarthQuakeClient2 {
     String source = "../data/nov20quakedatasmall.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
+    System.out.println();
 
+    System.out.println("MinMagFilter");
     Filter f = new MinMagFilter(4.0);
-    ArrayList<QuakeEntry> m7 = filter(list, f);
-    for (QuakeEntry qe : m7) {
+    ArrayList<QuakeEntry> filteredList = filter(list, f);
+    for (QuakeEntry qe : filteredList) {
+      System.out.println(qe);
+    }
+    System.out.println();
+
+    System.out.println("MagnitudeFilter + DepthFilter");
+    f = new MagnitudeFilter(4.0, 5.0);
+    filteredList = filter(list, f);
+    f = new DepthFilter(-35000.0, -12000.0);
+    filteredList = filter(filteredList, f);
+    for (QuakeEntry qe : filteredList) {
+      System.out.println(qe);
+    }
+    System.out.println();
+
+    System.out.println("DistanceFilter + PhraseFilter");
+    f = new DistanceFilter(new Location(35.42, 139.43), 10000000);
+    filteredList = filter(list, f);
+    f = new PhraseFilter("end", "Japan");
+    filteredList = filter(filteredList, f);
+    for (QuakeEntry qe : filteredList) {
       System.out.println(qe);
     }
   }
@@ -43,6 +63,11 @@ public class EarthQuakeClient2 {
     ArrayList<QuakeEntry> list = parser.read(source);
     dumpCSV(list);
     System.out.println("# quakes read: " + list.size());
+  }
+
+  public static void main(String[] args) {
+    EarthQuakeClient2 eqc = new EarthQuakeClient2();
+    eqc.quakesWithFilter();
   }
 
 }
