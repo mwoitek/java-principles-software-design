@@ -16,72 +16,80 @@ public class EarthQuakeClient2 {
 
   public void quakesWithFilter() {
     EarthQuakeParser parser = new EarthQuakeParser();
-    String source = "../data/nov20quakedatasmall.atom";
+    String source = "../data/nov20quakedata.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
     System.out.println();
 
-    System.out.println("MinMagFilter");
+    // System.out.println("MinMagFilter");
     Filter f = new MinMagFilter(4.0);
     ArrayList<QuakeEntry> filteredList = filter(list, f);
-    for (QuakeEntry qe : filteredList) {
-      System.out.println(qe);
-    }
-    System.out.println();
+    // for (QuakeEntry qe : filteredList) {
+    // System.out.println(qe);
+    // }
+    // System.out.println();
 
     System.out.println("MagnitudeFilter + DepthFilter");
-    f = new MagnitudeFilter(4.0, 5.0);
+    f = new MagnitudeFilter(3.5, 4.5);
     filteredList = filter(list, f);
-    f = new DepthFilter(-35000.0, -12000.0);
+    f = new DepthFilter(-55000.0, -20000.0);
     filteredList = filter(filteredList, f);
-    for (QuakeEntry qe : filteredList) {
-      System.out.println(qe);
-    }
+    // for (QuakeEntry qe : filteredList) {
+    // System.out.println(qe);
+    // }
+    System.out
+        .println("Found " + filteredList.size() + " quakes that match that criteria");
     System.out.println();
 
     System.out.println("DistanceFilter + PhraseFilter");
-    f = new DistanceFilter(new Location(35.42, 139.43), 10000000);
+    f = new DistanceFilter(new Location(39.7392, -104.9903), 1000000);
     filteredList = filter(list, f);
-    f = new PhraseFilter("end", "Japan");
+    f = new PhraseFilter("end", "a");
     filteredList = filter(filteredList, f);
-    for (QuakeEntry qe : filteredList) {
-      System.out.println(qe);
-    }
+    // for (QuakeEntry qe : filteredList) {
+    // System.out.println(qe);
+    // }
+    System.out
+        .println("Found " + filteredList.size() + " quakes that match that criteria");
   }
 
   public void testMatchAllFilter() {
     EarthQuakeParser parser = new EarthQuakeParser();
-    String source = "../data/nov20quakedatasmall.atom";
+    String source = "../data/nov20quakedata.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
 
     MatchAllFilter maf = new MatchAllFilter();
-    maf.addFilter(new MagnitudeFilter(0.0, 2.0, "Magnitude"));
-    maf.addFilter(new DepthFilter(-100000.0, -10000.0, "Depth"));
-    maf.addFilter(new PhraseFilter("any", "a", "Phrase"));
+    maf.addFilter(new MagnitudeFilter(1.0, 4.0, "Magnitude"));
+    maf.addFilter(new DepthFilter(-180000.0, -30000.0, "Depth"));
+    maf.addFilter(new PhraseFilter("any", "o", "Phrase"));
 
     ArrayList<QuakeEntry> filteredList = filter(list, maf);
-    for (QuakeEntry qe : filteredList) {
-      System.out.println(qe);
-    }
+    // for (QuakeEntry qe : filteredList) {
+    // System.out.println(qe);
+    // }
+    System.out
+        .println("Found " + filteredList.size() + " quakes that match that criteria");
     System.out.println("Filters used are: " + maf.getName());
   }
 
   public void testMatchAllFilter2() {
     EarthQuakeParser parser = new EarthQuakeParser();
-    String source = "../data/nov20quakedatasmall.atom";
+    String source = "../data/nov20quakedata.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
 
     MatchAllFilter maf = new MatchAllFilter();
-    maf.addFilter(new MagnitudeFilter(0.0, 3.0));
-    maf.addFilter(new DistanceFilter(new Location(36.1314, -95.9372), 10000000));
-    maf.addFilter(new PhraseFilter("any", "Ca"));
+    maf.addFilter(new MagnitudeFilter(0.0, 5.0));
+    maf.addFilter(new DistanceFilter(new Location(55.7308, 9.1153), 3000000));
+    maf.addFilter(new PhraseFilter("any", "e"));
 
     ArrayList<QuakeEntry> filteredList = filter(list, maf);
-    for (QuakeEntry qe : filteredList) {
-      System.out.println(qe);
-    }
+    // for (QuakeEntry qe : filteredList) {
+    // System.out.println(qe);
+    // }
+    System.out
+        .println("Found " + filteredList.size() + " quakes that match that criteria");
   }
 
   public void dumpCSV(ArrayList<QuakeEntry> list) {

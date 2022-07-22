@@ -6,7 +6,8 @@ public class EarthQuakeClient {
 
   public EarthQuakeClient() {}
 
-  public ArrayList<QuakeEntry> filterByMagnitude(ArrayList<QuakeEntry> quakeData, double magMin) {
+  public ArrayList<QuakeEntry> filterByMagnitude(ArrayList<QuakeEntry> quakeData,
+      double magMin) {
     ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
     for (QuakeEntry qe : quakeData) {
       if (qe.getMagnitude() > magMin) {
@@ -28,8 +29,8 @@ public class EarthQuakeClient {
     System.out.println("Found " + list.size() + " quakes that match that criteria");
   }
 
-  public ArrayList<QuakeEntry> filterByDistanceFrom(ArrayList<QuakeEntry> quakeData, double distMax,
-      Location from) {
+  public ArrayList<QuakeEntry> filterByDistanceFrom(ArrayList<QuakeEntry> quakeData,
+      double distMax, Location from) {
     ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
     for (QuakeEntry qe : quakeData) {
       if (qe.getLocation().distanceTo(from) < distMax) {
@@ -78,8 +79,8 @@ public class EarthQuakeClient {
     }
   }
 
-  public ArrayList<QuakeEntry> filterByDepth(ArrayList<QuakeEntry> quakeData, double minDepth,
-      double maxDepth) {
+  public ArrayList<QuakeEntry> filterByDepth(ArrayList<QuakeEntry> quakeData,
+      double minDepth, double maxDepth) {
     ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
     double depth;
     for (QuakeEntry qe : quakeData) {
@@ -93,21 +94,21 @@ public class EarthQuakeClient {
 
   public void quakesOfDepth() {
     EarthQuakeParser parser = new EarthQuakeParser();
-    String source = "../data/nov20quakedatasmall.atom";
+    String source = "../data/nov20quakedata.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
-    double minDepth = -10000.0;
-    double maxDepth = -5000.0;
+    double minDepth = -4000.0;
+    double maxDepth = -2000.0;
     System.out.println("Find quakes with depth between " + minDepth + " and " + maxDepth);
     list = filterByDepth(list, minDepth, maxDepth);
-    for (QuakeEntry qe : list) {
-      System.out.println(qe);
-    }
+    // for (QuakeEntry qe : list) {
+    // System.out.println(qe);
+    // }
     System.out.println("Found " + list.size() + " quakes that match that criteria");
   }
 
-  public ArrayList<QuakeEntry> filterByPhrase(ArrayList<QuakeEntry> quakeData, String position,
-      String phrase) {
+  public ArrayList<QuakeEntry> filterByPhrase(ArrayList<QuakeEntry> quakeData,
+      String position, String phrase) {
     ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
     String title;
     for (QuakeEntry qe : quakeData) {
@@ -123,35 +124,36 @@ public class EarthQuakeClient {
 
   public void quakesByPhrase(String position, String phrase) {
     EarthQuakeParser parser = new EarthQuakeParser();
-    String source = "../data/nov20quakedatasmall.atom";
+    String source = "../data/nov20quakedata.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
     list = filterByPhrase(list, position, phrase);
-    for (QuakeEntry qe : list) {
-      System.out.println(qe);
-    }
-    System.out.println("Found " + list.size() + " quakes that match " + phrase + " at " + position);
+    // for (QuakeEntry qe : list) {
+    // System.out.println(qe);
+    // }
+    System.out.println(
+        "Found " + list.size() + " quakes that match " + phrase + " at " + position);
   }
 
   public static void main(String[] args) {
     EarthQuakeClient eqc = new EarthQuakeClient();
 
-    eqc.bigQuakes(5.0);
-    System.out.println();
+    // eqc.bigQuakes(5.0);
+    // System.out.println();
 
-    eqc.closeToMe();
-    System.out.println();
+    // eqc.closeToMe();
+    // System.out.println();
 
     eqc.quakesOfDepth();
     System.out.println();
 
-    eqc.quakesByPhrase("end", "California");
+    eqc.quakesByPhrase("start", "Quarry Blast");
+    System.out.println();
+
+    eqc.quakesByPhrase("end", "Alaska");
     System.out.println();
 
     eqc.quakesByPhrase("any", "Can");
-    System.out.println();
-
-    eqc.quakesByPhrase("start", "Explosion");
   }
 
 }

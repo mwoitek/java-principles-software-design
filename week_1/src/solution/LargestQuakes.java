@@ -32,10 +32,10 @@ public class LargestQuakes {
 
   public void findLargestQuakes() {
     EarthQuakeParser parser = new EarthQuakeParser();
-    String source = "../data/nov20quakedatasmall.atom";
+    String source = "../data/nov20quakedata.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
-    ArrayList<QuakeEntry> largest = getLargest(list, 5);
+    ArrayList<QuakeEntry> largest = getLargest(list, 50);
     for (QuakeEntry qe : largest) {
       System.out.println(qe);
     }
