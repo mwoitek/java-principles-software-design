@@ -57,13 +57,15 @@ public class QuakeSortInPlace {
     int idxMax;
     QuakeEntry quake;
     QuakeEntry maxQuake;
-    for (int idx = 0; idx < in.size(); idx++) {
+    // for (int idx = 0; idx < in.size(); idx++) {
+    for (int idx = 0; idx < 50; idx++) {
       idxMax = getLargestDepth(in, idx);
       quake = in.get(idx);
       maxQuake = in.get(idxMax);
       in.set(idx, maxQuake);
       in.set(idxMax, quake);
     }
+    System.out.println(in.get(in.size() - 1).getDepth());
   }
 
   public void onePassBubbleSort(ArrayList<QuakeEntry> quakeData, int numSorted) {
@@ -128,20 +130,20 @@ public class QuakeSortInPlace {
 
   public void testSort() {
     EarthQuakeParser parser = new EarthQuakeParser();
-    String source = "../data/earthquakeDataSampleSix1.atom";
+    String source = "../data/earthQuakeDataWeekDec6sample2.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
 
     // sortByMagnitude(list);
     // sortByLargestDepth(list);
     // sortByMagnitudeWithBubbleSort(list);
-    // sortByMagnitudeWithBubbleSortWithCheck(list);
-    sortByMagnitudeWithCheck(list);
+    sortByMagnitudeWithBubbleSortWithCheck(list);
+    // sortByMagnitudeWithCheck(list);
 
-    System.out.println("Earthquakes in sorted order:");
-    for (QuakeEntry qe : list) {
-      System.out.println(qe);
-    }
+    // System.out.println("Earthquakes in sorted order:");
+    // for (QuakeEntry qe : list) {
+    // System.out.println(qe);
+    // }
   }
 
   public static void main(String[] args) {
