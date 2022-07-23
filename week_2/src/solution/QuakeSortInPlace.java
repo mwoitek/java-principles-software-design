@@ -92,15 +92,51 @@ public class QuakeSortInPlace {
     }
   }
 
+  public boolean checkInSortedOrder(ArrayList<QuakeEntry> quakes) {
+    for (int i = 1; i < quakes.size(); i++) {
+      if (quakes.get(i - 1).getMagnitude() > quakes.get(i).getMagnitude()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public void sortByMagnitudeWithBubbleSortWithCheck(ArrayList<QuakeEntry> in) {
+    int i = 0;
+    while (!checkInSortedOrder(in) && i < in.size() - 1) {
+      onePassBubbleSort(in, i);
+      i++;
+    }
+    System.out.println("Passes needed to sort the elements: " + i);
+  }
+
+  public void sortByMagnitudeWithCheck(ArrayList<QuakeEntry> in) {
+    int idx = 0;
+    int idxMin;
+    QuakeEntry quake;
+    QuakeEntry quakeMin;
+    while (!checkInSortedOrder(in) && idx < in.size()) {
+      idxMin = getSmallestMagnitude(in, idx);
+      quake = in.get(idx);
+      quakeMin = in.get(idxMin);
+      in.set(idx, quakeMin);
+      in.set(idxMin, quake);
+      idx++;
+    }
+    System.out.println("Passes needed to sort the elements: " + idx);
+  }
+
   public void testSort() {
     EarthQuakeParser parser = new EarthQuakeParser();
-    String source = "../data/earthquakeDataSampleSix2.atom";
+    String source = "../data/earthquakeDataSampleSix1.atom";
     ArrayList<QuakeEntry> list = parser.read(source);
     System.out.println("read data for " + list.size() + " quakes");
 
     // sortByMagnitude(list);
-    sortByMagnitudeWithBubbleSort(list);
     // sortByLargestDepth(list);
+    // sortByMagnitudeWithBubbleSort(list);
+    // sortByMagnitudeWithBubbleSortWithCheck(list);
+    sortByMagnitudeWithCheck(list);
 
     System.out.println("Earthquakes in sorted order:");
     for (QuakeEntry qe : list) {
