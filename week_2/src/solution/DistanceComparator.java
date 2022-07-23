@@ -3,6 +3,7 @@ package solution;
 import java.util.Comparator;
 
 public class DistanceComparator implements Comparator<QuakeEntry> {
+
   Location fromWhere;
 
   public DistanceComparator(Location where) {
