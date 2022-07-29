@@ -22,6 +22,7 @@ public class MarkovRunner {
     st = st.replace('\n', ' ');
     MarkovOne markov = new MarkovOne();
     markov.setTraining(st);
+    markov.setRandom(42);
     for (int k = 0; k < 3; k++) {
       String text = markov.getRandomText(500);
       printOut(text);
