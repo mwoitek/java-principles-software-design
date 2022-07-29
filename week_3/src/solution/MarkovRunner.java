@@ -42,6 +42,19 @@ public class MarkovRunner {
     }
   }
 
+  public void runMarkovModel() {
+    FileResource fr = new FileResource();
+    String st = fr.asString();
+    st = st.replace('\n', ' ');
+    MarkovModel markov = new MarkovModel(6);
+    markov.setTraining(st);
+    markov.setRandom(38);
+    for (int k = 0; k < 3; k++) {
+      String text = markov.getRandomText(500);
+      printOut(text);
+    }
+  }
+
   private void printOut(String s) {
     String[] words = s.split("\\s+");
     int psize = 0;
@@ -60,7 +73,8 @@ public class MarkovRunner {
   public static void main(String args[]) {
     MarkovRunner mr = new MarkovRunner();
     // mr.runMarkovOne();
-    mr.runMarkovFour();
+    // mr.runMarkovFour();
+    mr.runMarkovModel();
   }
 
 }
