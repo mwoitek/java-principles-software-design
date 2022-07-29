@@ -2,10 +2,7 @@ package solution;
 
 import java.util.Random;
 
-public class MarkovZero implements IMarkovModel {
-
-  private String myText;
-  private Random myRandom;
+public class MarkovZero extends AbstractMarkovModel {
 
   public MarkovZero() {
     myRandom = new Random();
@@ -29,6 +26,10 @@ public class MarkovZero implements IMarkovModel {
       sb.append(myText.charAt(index));
     }
     return sb.toString();
+  }
+
+  public String toString() {
+    return "MarkovModel of order 0";
   }
 
 }
