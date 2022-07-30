@@ -34,6 +34,44 @@ public class MarkovRunnerWithInterface {
     runModel(mFour, st, size, seed);
   }
 
+  public void testHashMap() {
+    EfficientMarkovModel mTwo = new EfficientMarkovModel(2);
+    mTwo.setRandom(42);
+    mTwo.setTraining("yes-this-is-a-thin-pretty-pink-thistle");
+    printOut(mTwo.getRandomText(50));
+  }
+
+  public void compareMethods() {
+    FileResource fr = new FileResource("../data/hawthorne.txt");
+    String s = fr.asString();
+    s = s.replace('\n', ' ');
+
+    MarkovModel markov1 = new MarkovModel(2);
+    markov1.setRandom(42);
+    System.out.println("MarkovModel:");
+    long startTime = System.nanoTime();
+    markov1.setTraining(s);
+    for (int k = 0; k < 3; k++) {
+      printOut(markov1.getRandomText(1000));
+    }
+    long stopTime = System.nanoTime();
+    double executionTime = ((double) (stopTime - startTime)) / 1000000000;
+    System.out.println("Execution time: " + executionTime + " s");
+    System.out.println();
+
+    EfficientMarkovModel markov2 = new EfficientMarkovModel(2);
+    markov2.setRandom(42);
+    System.out.println("EfficientMarkovModel:");
+    startTime = System.nanoTime();
+    markov2.setTraining(s);
+    for (int k = 0; k < 3; k++) {
+      printOut(markov2.getRandomText(1000));
+    }
+    stopTime = System.nanoTime();
+    executionTime = ((double) (stopTime - startTime)) / 1000000000;
+    System.out.println("Execution time: " + executionTime + " s");
+  }
+
   private void printOut(String s) {
     String[] words = s.split("\\s+");
     int psize = 0;
@@ -51,7 +89,9 @@ public class MarkovRunnerWithInterface {
 
   public static void main(String args[]) {
     MarkovRunnerWithInterface mr = new MarkovRunnerWithInterface();
-    mr.runMarkov();
+    // mr.runMarkov();
+    // mr.testHashMap();
+    mr.compareMethods();
   }
 
 }
