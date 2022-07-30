@@ -91,7 +91,17 @@ public class MarkovRunnerWithInterface {
     MarkovRunnerWithInterface mr = new MarkovRunnerWithInterface();
     // mr.runMarkov();
     // mr.testHashMap();
-    mr.compareMethods();
+    // mr.compareMethods();
+
+    FileResource fr = new FileResource("../data/confucius.txt");
+    String s = fr.asString();
+    s = s.replace('\n', ' ');
+
+    EfficientMarkovModel markov = new EfficientMarkovModel(6);
+    mr.runModel(markov, s, 100, 792);
+
+    markov = new EfficientMarkovModel(5);
+    mr.runModel(markov, s, 100, 531);
   }
 
 }

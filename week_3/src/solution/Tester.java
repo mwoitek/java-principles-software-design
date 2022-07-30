@@ -34,7 +34,7 @@ public class Tester {
     MarkovOne markov = new MarkovOne();
     FileResource fr = new FileResource("../data/confucius.txt");
     markov.setTraining(fr.asString());
-    ArrayList<String> follows = markov.getFollows("t");
+    ArrayList<String> follows = markov.getFollows("he");
     System.out.println(follows.size());
   }
 

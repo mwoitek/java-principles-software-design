@@ -48,13 +48,13 @@ public class EfficientMarkovModel extends AbstractMarkovModel {
 
   public void printHashMapInfo() {
     int numKeys = followsMap.size();
-    if (numKeys <= 30) {
-      System.out.println("HashMap:");
-      for (String key : followsMap.keySet()) {
-        System.out.println(key + ": " + followsMap.get(key));
-      }
-      System.out.println();
-    }
+    // if (numKeys <= 30) {
+    // System.out.println("HashMap:");
+    // for (String key : followsMap.keySet()) {
+    // System.out.println(key + ": " + followsMap.get(key));
+    // }
+    // System.out.println();
+    // }
 
     System.out.println("Number of keys: " + numKeys);
     System.out.println();
@@ -82,7 +82,7 @@ public class EfficientMarkovModel extends AbstractMarkovModel {
     myText = s.trim();
     followsMap.clear();
     buildMap();
-    // printHashMapInfo();
+    printHashMapInfo();
   }
 
   public ArrayList<String> getFollows(String key) {
